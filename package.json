@@ -1,0 +1,23 @@
+{
+  "name": "ns_assesment_api",
+  "version": "1.0.0",
+  "description": "Assessment Full Stack dev NS - Arjen Klaverstijn 2025",
+  "main": "./build/app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npx tsx --watch",
+    "build": "npx tsc",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "author": "Arjen Klaverstijn",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "fastify": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}
