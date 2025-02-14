@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { createExpressOpenApiRouter } from "openapi-ts-router"
 import { zValidator } from "validation-adapters/zod"
-import { type paths } from "./types/assignment"
+import { components, type paths } from "./types/assignment"
 
 import z from "zod"
 import { getMostOptimalTrip, getTripsByComfort } from "./nsapi.js"
@@ -20,8 +20,14 @@ openApiRouter.get("/api/v3/optimal", {
   handler: async (req, res) => {
     try {
       const trip = await getMostOptimalTrip(req.query)
+      if (!trip) {
+        res.sendStatus(404)
+        return
+      }
       res.status(200).send(trip)
-    } catch (error) {}
+    } catch (error) {
+      res.status(500)
+    }
   },
 })
 
@@ -30,7 +36,13 @@ openApiRouter.get("/api/v3/comfort", {
   handler: async (req, res) => {
     try {
       const trips = await getTripsByComfort(req.query)
+      if (!trips) {
+        res.sendStatus(404)
+        return
+      }
       res.status(200).send(trips)
-    } catch (error) {}
+    } catch (error) {
+      res.status(500)
+    }
   },
 })
