@@ -70,6 +70,12 @@ const getJourneyDetailById = async (
       },
     },
   })
+
+  if (error) {
+    console.error(error)
+    throw new Error(error.message)
+  }
+
   return data.payload
 }
 
