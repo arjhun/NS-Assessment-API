@@ -40,7 +40,7 @@ export const getCrowdScore = (score?: Trip["crowdForecast"]) => {
   }
 }
 
-//find a journey by id
+ * @param {string} id - The ID of the journey.
 const getJourneyDetailById = async (
   id: string,
   train?: number,
@@ -58,7 +58,7 @@ const getJourneyDetailById = async (
   return data
 }
 
-// score a trip based on comfort higher is better
+ * The comfort score is determined based on the facilities available on the journey,
 const getComfortScore = async (trip: Trip): Promise<number> => {
   const facilitiesOnJourney = new Set<string>()
   // loop through each journey to find all the facilities present in train,
@@ -91,6 +91,7 @@ const getComfortScore = async (trip: Trip): Promise<number> => {
   return busyScore + facilityScore - transferScore
 }
 
+ * @param {string} params.toStation - The destination station.
 export const getTrips = async ({
   fromStation,
   toStation,
@@ -128,6 +129,7 @@ export const findOptimalTrip = async ({
   return trips?.find((trip) => trip.optimal)
 }
 
+ * @param {string} params.fromStation - The departure station.
 export const getTripsByComfort = async ({
   fromStation,
   toStation,
