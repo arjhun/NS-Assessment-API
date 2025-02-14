@@ -7,6 +7,7 @@ My assessment assignment for the position of full stack developer @ NS
 - [NS Assignment Full Stack Developer (Typescript)](#ns-assignment-full-stack-developer-typescript)
   - [Table of Contents](#table-of-contents)
   - [Focus and scope](#focus-and-scope)
+  - [Endpoints](#endpoints)
   - [Local build testing](#local-build-testing)
   - [Production](#production)
   - [Out of scope improvements](#out-of-scope-improvements)
@@ -23,6 +24,26 @@ because of the scope of the project and limited time I picked the following topi
     - Project structuring
     - Cloud agnostic deployment through docker 
     - Documentation
+
+## Endpoints
+1. Provides the optimal trip between two train stations based on the
+inputs.
+
+    ``` GET /api/v3/optimal[?fromStation][&toStaion][&dateTime]```
+
+2. Provides a list of trips between two train stations based on the
+inputs sorted on comfort. Comfort is based on:
+   - Amount of transfers
+   - How busy the train is
+   - How many facilities the train has (WiFi, Stilte coupe, etc)
+
+    ``` GET /api/v3/comfort[?fromStation][&toStaion][&dateTime]```
+
+Query params:
+
+`fromStation `(required) station full name
+`fromStation` (required) station full name
+`dateTime` (optional) Date time string in ISO8610 format server time if undefined
 
 ## Local build testing 
 
