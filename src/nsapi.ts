@@ -9,9 +9,17 @@ type TripRequest = {
   dateTime?: string
 }
 
+const apiKey = process.env.APIKEY
+
+if (!apiKey) {
+  throw new Error(
+    "API key is missing. Please set the APIKEY environment variable."
+  )
+}
+
 const client = createClient<paths>({
   baseUrl: "https://gateway.apiportal.ns.nl/reisinformatie-api",
-  headers: { "Ocp-Apim-Subscription-Key": process.env.APIKEY },
+  headers: { "Ocp-Apim-Subscription-Key": apiKey },
 })
 
 // middleware for debugging requests
