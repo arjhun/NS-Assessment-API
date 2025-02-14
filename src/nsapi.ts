@@ -78,29 +78,34 @@ const getJourneyDetailById = async (
  * @returns {Promise<number>} A promise that resolves to the comfort score of the trip.
  */
 const getComfortScore = async (trip: Trip): Promise<number> => {
+  
   const facilitiesOnJourney = new Set<string>()
+
   // loop through each journey to find all the facilities present in train,
   // adding all the facilities to a set to get a list of all the facilities present
-  for (const leg of trip.legs) {
-    if (!leg.journeyDetailRef) continue
-    // a journey is a separete api request
-    const journey = await getJourneyDetailById(
-      leg.journeyDetailRef,
-      Number(leg.product?.number),
-      leg.origin.plannedDateTime
+  const journeyPromises = trip.legs
+    .filter((leg) => leg.journeyDetailRef)
+    .map((leg) =>
+      getJourneyDetailById(
+        leg.journeyDetailRef!,
+        Number(leg.product?.number),
+        leg.origin.plannedDateTime
+      )
     )
-    // this part of the api is a little unclear to me
-    // (but it was the only part that mentioned facilities)
-    // should I add a dateTime to getJourneyDetail?
-    journey?.payload.stops?.forEach((stop) => {
-      const stock = stop.actualStock ?? stop.plannedStock
-      stock?.trainParts.forEach((part) => {
-        part.facilities.forEach((facility) => {
-          facilitiesOnJourney.add(facility)
-        })
-      })
-    })
-  }
+
+  const journeys = await Promise.all(journeyPromises)
+
+  // get all the trains facilities
+  journeys
+    .flatMap((journey) => journey?.payload.stops ?? [])
+    .flatMap(
+      (stop) =>
+        // get the planned stock if no actual stock
+        stop.actualStock?.trainParts ?? stop.plannedStock?.trainParts ?? []
+    )
+    .flatMap((part) => part.facilities)
+    .forEach((facility) => facilitiesOnJourney.add(facility))
+
   // add a weight to the scores
   const busyScore = getCrowdScore(trip.crowdForecast) * BUSY_WEIGHT
   const facilityScore = facilitiesOnJourney.size * FACILITY_WEIGHT
