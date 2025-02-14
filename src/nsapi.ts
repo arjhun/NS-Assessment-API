@@ -54,13 +54,13 @@ export const getCrowdScore = (score?: Trip["crowdForecast"]) => {
  * @param {string} id - The ID of the journey.
  * @param {number} [train] - The train number (optional).
  * @param {string} [dateTime] - The date and time of the journey (optional).
- * @returns {Promise<any>} A promise that resolves to the journey details.
+ * @returns {Promise<Journey | undefined>} A promise that resolves to the journey details.
  */
 const getJourneyDetailById = async (
   id: string,
   train?: number,
   dateTime?: string
-) => {
+): Promise<Journey | undefined> => {
   const { data, error } = await client.GET("/api/v2/journey", {
     params: {
       query: {
@@ -70,7 +70,7 @@ const getJourneyDetailById = async (
       },
     },
   })
-  return data
+  return data.payload
 }
 
 /**
@@ -103,7 +103,7 @@ const getComfortScore = async (trip: Trip): Promise<number> => {
 
   // get all the trains facilities
   journeys
-    .flatMap((journey) => journey?.payload.stops ?? [])
+    .flatMap((journey) => journey?.stops ?? [])
     .flatMap(
       (stop) =>
         // get the planned stock if no actual stock
