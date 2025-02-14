@@ -65,7 +65,7 @@ Query params:
 2. run the container though your preferred docker runtime method make sure the port and `APIKEY` are set as an environment variable or docker secret
    
    ```
-   docker run -d -p 3000:3000 -e APIKEY="yourapikey"  ns-assignment-api:latest
+   docker run --rm --name ns-assignment-api -d -p 3000:3000 -e APIKEY="your_api_key" ns-assignment-api:latest
    ```
 
 3.   Go to http://localhost:3000 or your cloud instance url and start using the api endpoints
