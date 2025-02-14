@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "ES6",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "importHelpers": true,
     "resolveJsonModule": true,
-    "sourceMap": true,
     "declaration": true,
     "tsBuildInfoFile": "./node_modules/.tmp/.tsbuildinfo",
 
