@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express"
 //this is very rudimentary, in production you would use a serious persistent rate limiter
 
 let requestCount = new Map<string, number>()
-let REQUEST_LIMIT = 2
+let REQUEST_LIMIT = 500
 let REQUEST_LIMIT_TIME_MS = 1000 * 60
 
 //every hour rates are reset... rate = REQUEST_LIMIT per REQUEST_LIMIT_TIME_MS
