@@ -1,0 +1,9 @@
+apis:
+  ns@v3:
+    root: ./openapi/reisinformatie-api.yaml
+    x-openapi-ts:
+      output: ./src/types/reisinformatie.d.ts
+  arjen@v3:
+    root: ./openapi/assignment-api.yaml
+    x-openapi-ts:
+      output: ./src/types/assignment.d.ts
