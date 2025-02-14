@@ -26,7 +26,7 @@ const BUSY_WEIGHT = 1,
   TRANSFER_WEIGHT = 1,
   FACILITY_WEIGHT = 1
 
-//give a score of max 3 to how busy the trip is forcasted to be
+// give a score of max 3 to how busy the trip is forcasted to be
 export const getCrowdScore = (score?: Trip["crowdForecast"]) => {
   switch (score) {
     case "LOW":
@@ -101,11 +101,11 @@ const getComfortScore = async (trip: Trip): Promise<number> => {
       })
     })
   }
-  //add a weight to the scores
+  // add a weight to the scores
   const busyScore = getCrowdScore(trip.crowdForecast) * BUSY_WEIGHT
   const facilityScore = facilitiesOnJourney.size * FACILITY_WEIGHT
   const transferScore = trip.transfers * TRANSFER_WEIGHT
-  //return the score, transfers are deducted
+  // return the score, transfers are deducted
   return busyScore + facilityScore - transferScore
 }
 
