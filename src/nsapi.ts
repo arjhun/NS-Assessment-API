@@ -40,7 +40,14 @@ export const getCrowdScore = (score?: Trip["crowdForecast"]) => {
   }
 }
 
+/**
+ * Retrieves the details of a journey by its ID.
+ *
  * @param {string} id - The ID of the journey.
+ * @param {number} [train] - The train number (optional).
+ * @param {string} [dateTime] - The date and time of the journey (optional).
+ * @returns {Promise<any>} A promise that resolves to the journey details.
+ */
 const getJourneyDetailById = async (
   id: string,
   train?: number,
@@ -58,7 +65,18 @@ const getJourneyDetailById = async (
   return data
 }
 
+/**
+ * Calculates the comfort score for a given trip.
+ *
  * The comfort score is determined based on the facilities available on the journey,
+ * the crowd forecast, and the number of transfers. The score is calculated as follows:
+ * - Each unique facility on the journey adds to the score.
+ * - The crowd forecast contributes to the score with a weight.
+ * - The number of transfers deducts from the score.
+ *
+ * @param {Trip} trip - The trip for which the comfort score is calculated.
+ * @returns {Promise<number>} A promise that resolves to the comfort score of the trip.
+ */
 const getComfortScore = async (trip: Trip): Promise<number> => {
   const facilitiesOnJourney = new Set<string>()
   // loop through each journey to find all the facilities present in train,
@@ -91,7 +109,16 @@ const getComfortScore = async (trip: Trip): Promise<number> => {
   return busyScore + facilityScore - transferScore
 }
 
+/**
+ * Retrieves trips from the NS API based on the provided parameters.
+ *
+ * @param {TripRequest} params - The parameters for the trip request.
+ * @param {string} params.fromStation - The departure station.
  * @param {string} params.toStation - The destination station.
+ * @param {string} [params.dateTime] - The date and time for the trip. Defaults to the current date and time if not provided.
+ * @returns {Promise<Trip[] | undefined>} A promise that resolves to an array of trips or undefined if no trips are found.
+ * @throws {Error} Throws an error if the API request fails.
+ */
 export const getTrips = async ({
   fromStation,
   toStation,
@@ -129,7 +156,16 @@ export const findOptimalTrip = async ({
   return trips?.find((trip) => trip.optimal)
 }
 
+/**
+ * Retrieves the trips sorted on most comfortable.
+ *
+ * @param {TripRequest} params - The parameters for the trip request.
  * @param {string} params.fromStation - The departure station.
+ * @param {string} params.toStation - The destination station.
+ * @param {string} [params.dateTime] - The date and time for the trip. Defaults to the current date and time if not provided.
+ * @returns {Promise<Trip | undefined>} A promise that resolves to a trip or undefined if no trip is found.
+ * @throws {Error} Throws an error if the API request fails.
+ */
 export const getTripsByComfort = async ({
   fromStation,
   toStation,
