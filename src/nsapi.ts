@@ -34,7 +34,11 @@ const BUSY_WEIGHT = 4,
   TRANSFER_WEIGHT = 1,
   FACILITY_WEIGHT = 3
 
-// give a score of max 3 to how busy the trip is forcasted to be
+/**
+ *
+ * @param {Trip["crowdForecast"]} score
+ * @returns {number} The score based on how busy it's expected to be in the train
+ */
 export const getCrowdScore = (score?: Trip["crowdForecast"]) => {
   switch (score) {
     case "LOW":
