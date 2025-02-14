@@ -4,7 +4,7 @@ import { zValidator } from "validation-adapters/zod"
 import { type paths } from "./types/assignment"
 
 import z from "zod"
-import { findOptimalTrip, getTripsByComfort } from "./nsapi"
+import { findOptimalTrip, getTripsByComfort } from "./nsapi.js"
 
 export const router: Router = Router()
 export const openApiRouter = createExpressOpenApiRouter<paths>(router)

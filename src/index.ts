@@ -1,6 +1,6 @@
 import express from "express"
-import { router } from "./router"
-import { requestLimiter } from "./middleware"
+import { router } from "./router.js"
+import { requestLimiter } from "./middleware.js"
 
 const app = express()
 const port = 3000
