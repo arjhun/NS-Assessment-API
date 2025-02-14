@@ -81,8 +81,6 @@ const getComfortScore = async (trip: Trip): Promise<number> => {
   
   const facilitiesOnJourney = new Set<string>()
 
-  // loop through each journey to find all the facilities present in train,
-  // adding all the facilities to a set to get a list of all the facilities present
   const journeyPromises = trip.legs
     .filter((leg) => leg.journeyDetailRef)
     .map((leg) =>
@@ -191,7 +189,7 @@ export const getTripsByComfort = async ({
   return await Promise.all(
     trips.map(async (trip) => ({
       trip,
-      // add score so we can sort adter all promises are done
+      // add score so we can sort after all promises are done
       score: await getComfortScore(trip),
     }))
   ).then((scoredTrips) =>
