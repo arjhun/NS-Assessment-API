@@ -3,6 +3,7 @@ import createClient from "openapi-fetch"
 import type { components, paths } from "./types/reisinformatie"
 
 type Trip = components["schemas"]["Trip"]
+type Journey = components["schemas"]["RepresentationResponseJourney"]["payload"]
 type TripRequest = {
   fromStation: string
   toStation: string
