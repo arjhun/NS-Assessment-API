@@ -194,7 +194,7 @@ export const getTripsByComfort = async ({
     }))
   ).then((scoredTrips) =>
     scoredTrips
-      .sort((a, b) => a.score - b.score)
+      .sort((a, b) => b.score - a.score)
       // remove score
       .map((scoredTrip) => scoredTrip.trip)
   )
