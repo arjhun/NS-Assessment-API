@@ -4,7 +4,7 @@ import { zValidator } from "validation-adapters/zod"
 import { type paths } from "./types/assignment"
 
 import z from "zod"
-import { findOptimalTrip, getTripsByComfort } from "./nsapi.js"
+import { getMostOptimalTrip, getTripsByComfort } from "./nsapi.js"
 
 export const router: Router = Router()
 export const openApiRouter = createExpressOpenApiRouter<paths>(router)
@@ -19,7 +19,7 @@ openApiRouter.get("/api/v3/optimal", {
   queryValidator: zValidator(TripRequestSchema),
   handler: async (req, res) => {
     try {
-      const trip = await findOptimalTrip(req.query)
+      const trip = await getMostOptimalTrip(req.query)
       res.status(200).send(trip)
     } catch (error) {}
   },

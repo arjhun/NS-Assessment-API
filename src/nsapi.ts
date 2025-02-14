@@ -147,7 +147,17 @@ export const getTrips = async ({
   return data?.trips
 }
 
-export const findOptimalTrip = async ({
+/**
+ * Retrieves the most optimal trip.
+ *
+ * @param {TripRequest} params - The parameters for the trip request.
+ * @param {string} params.fromStation - The departure station.
+ * @param {string} params.toStation - The destination station.
+ * @param {string} [params.dateTime] - The date and time for the trip. Defaults to the current date and time if not provided.
+ * @returns {Promise<Trip | undefined>} A promise that resolves to a trip or undefined if no trip is found.
+ * @throws {Error} Throws an error if the API request fails.
+ */
+export const getMostOptimalTrip = async ({
   fromStation,
   toStation,
   dateTime,
