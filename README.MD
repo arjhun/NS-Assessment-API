@@ -29,7 +29,7 @@ because of the scope of the project and limited time I picked the following topi
 1. Provides the optimal trip between two train stations based on the
 inputs.
 
-    ``` GET /api/v3/optimal[?fromStation][&toStaion][&dateTime]```
+    ``` GET /api/v3/optimal[?fromStation][&toStation][&dateTime]```
 
 2. Provides a list of trips between two train stations based on the
 inputs sorted on comfort. Comfort is based on:
@@ -37,7 +37,7 @@ inputs sorted on comfort. Comfort is based on:
    - How busy the train is
    - How many facilities the train has (WiFi, Stilte coupe, etc)
 
-    ``` GET /api/v3/comfort[?fromStation][&toStaion][&dateTime]```
+    ``` GET /api/v3/comfort[?fromStation][&toStation][&dateTime]```
 
 Query params:
 
