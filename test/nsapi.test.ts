@@ -2,7 +2,7 @@ import { expect, test } from "vitest"
 import { getCrowdScore } from "../src/nsapi"
 
 // I exported this function just to make some test, 
-// IRL I would test only public interfaces or exported utitlity functions
+// IRL I would test only public interfaces or exported utility functions
 
 test("getCrowdScore returns 3 for LOW crowd forecast", () => {
   expect(getCrowdScore("LOW")).toBe(3)
