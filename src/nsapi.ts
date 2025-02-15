@@ -19,6 +19,7 @@ if (!apiKey) {
   )
 }
 
+//create a typesafe OpenAPI client 
 const client = createClient<paths>({
   baseUrl: "https://gateway.apiportal.ns.nl/reisinformatie-api",
   headers: { "Ocp-Apim-Subscription-Key": apiKey },
