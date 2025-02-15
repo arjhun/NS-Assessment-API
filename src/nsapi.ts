@@ -204,18 +204,20 @@ export const getTripsByComfort = async ({
   toStation,
   dateTime,
 }: TripRequest) => {
+  
   const trips = await getTrips({ fromStation, toStation, dateTime })
-  if (!trips) return
-  return await Promise.all(
-    trips.map(async (trip) => ({
-      trip,
-      // add score so we can sort after all promises are done
-      score: await getComfortScore(trip),
-    }))
-  ).then((scoredTrips) =>
-    scoredTrips
-      .sort((a, b) => b.score - a.score)
-      // remove score
-      .map((scoredTrip) => scoredTrip.trip)
-  )
+ 
+  if (!trips) return 
+  
+  const scoredTripPromises = trips.map(async (trip) => ({
+    trip,
+    // add score so we can sort after all promises are done
+    score: await getComfortScore(trip),
+  }))
+
+  const scoredTrips = await Promise.all(scoredTripPromises)
+
+  return scoredTrips
+    .sort((a, b) => b.score - a.score)
+    .map(({ trip }) => trip)
 }
