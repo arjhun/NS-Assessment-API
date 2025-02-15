@@ -159,8 +159,7 @@ export const getTrips = async ({
         //only actual stops!
         passing: false,
       },
-    },
-    middleware: {},
+    }
   })
 
   if (error) {
