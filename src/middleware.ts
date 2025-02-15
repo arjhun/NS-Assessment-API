@@ -11,7 +11,6 @@ setInterval(() => {
   requestCount.forEach((count, ip) => {
     if (count >= REQUEST_LIMIT) {
       requestCount.set(ip, 0)
-      console.log("Ratelimiter reset for:", ip)
     }
   })
 }, REQUEST_LIMIT_TIME_MS) // 1 hour in milliseconds
