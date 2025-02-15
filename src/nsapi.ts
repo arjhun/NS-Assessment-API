@@ -4,6 +4,7 @@ import type { components, paths } from "./types/reisinformatie"
 
 type Trip = components["schemas"]["Trip"]
 type Journey = components["schemas"]["RepresentationResponseJourney"]["payload"]
+
 type TripRequest = {
   fromStation: string
   toStation: string
@@ -65,7 +66,7 @@ const getJourneyDetailById = async (
   id: string,
   train?: number,
   dateTime?: string
-): Promise<Journey | undefined> => {
+) => {
   const { data, error } = await client.GET("/api/v2/journey", {
     params: {
       query: {
@@ -96,8 +97,7 @@ const getJourneyDetailById = async (
  * @param {Trip} trip - The trip for which the comfort score is calculated.
  * @returns {Promise<number>} A promise that resolves to the comfort score of the trip.
  */
-const getComfortScore = async (trip: Trip): Promise<number> => {
-  
+const getComfortScore = async (trip: Trip) => {
   const facilitiesOnJourney = new Set<string>()
 
   const journeyPromises = trip.legs
@@ -145,7 +145,7 @@ export const getTrips = async ({
   fromStation,
   toStation,
   dateTime,
-}: TripRequest): Promise<Trip[] | undefined> => {
+}: TripRequest) => {
   const { data, error } = await client.GET("/api/v3/trips", {
     params: {
       query: {
