@@ -10,7 +10,7 @@ My assessment assignment for the position of full stack developer @ NS
   - [Endpoints](#endpoints)
   - [Local build testing](#local-build-testing)
   - [Production](#production)
-  - [Out of scope improvements](#out-of-scope-improvements)
+  - [Possible improvements](#possible-improvements)
   - [Dependencies](#dependencies)
   - [Dev Dependencies](#dev-dependencies)
   
@@ -49,9 +49,9 @@ Query params:
 
 1. Clone this repository
 2. If any changes were made to the schema regenerate types `npm run generate-types` This will run `npx openapi-typescript` and convert the open api specs in the openapi folder to typescript types
-3. Make sure you gave a subscription key in the ns portal for the product ['Reisinformatie API'](https://apiportal.ns.nl/startersguide) add this key as a enviroment variable `APIKEY="12345457856341323442423234234"`
+3. Make sure you gave a subscription key in the ns portal for the product ['Reisinformatie API'](https://apiportal.ns.nl/startersguide) add this key as a environment variable `APIKEY="12345457856341323442423234234"`
    - locally: though a .env file
-   - production: docker enviroment variable e.a.
+   - production: docker environment variable e.a.
 4. `npm install`
 5. Run tsc in --watch mode `npm run dev`
 
@@ -70,10 +70,13 @@ Query params:
 
 3.   Go to http://localhost:3000 or your cloud instance url and start using the api endpoints
 
-## Out of scope improvements
+## Possible improvements
 
 - Proper error handling everywhere
+- Proper per user ratelimiting and external API call limits
+- Type safe error responses
 - API Authentication
+- Caching
 - OPENAPI Schema explore page
 - Proper unit testing through vitest
 - Use AWS API Gateway and AWS Lambda
@@ -82,11 +85,11 @@ Query params:
 
 - `dotenv` .env variable parsing 
 - `express` webserver for api endpoints
-- `openapi-ts-router` typesafe endpoints based on OpenAPI Spec
+- `openapi-ts-router` type safe endpoints based on OpenAPI Spec
 - `validation-adapters` and `zod` adapters for request schema 
 
 ## Dev Dependencies
 
-- `openapi-fetch` A thin layer over the fetch command to fetch typesafe way from an OpenAPI spec
+- `openapi-fetch` A thin layer over the fetch command to fetch type safe way from an OpenAPI spec
 - `typescript`
 - `vitest` Super fast unit and coverage testing 
