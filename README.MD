@@ -92,8 +92,7 @@ Query params:
 - `dotenv` .env variable parsing 
 - `express` webserver for api endpoints
 - `openapi-ts-router` type safe endpoints based on OpenAPI Spec
-- `validation-adapters` and `zod` adapters for request schema 
-
+- `validation-adapters` with `zod` adapters for request runtime validation
 ## Dev Dependencies
 
 - `openapi-fetch` A thin layer over the fetch command to fetch type safe way from an OpenAPI spec
