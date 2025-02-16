@@ -16,14 +16,14 @@ My assessment assignment for the position of full stack developer @ NS
   - [Dev Dependencies](#dev-dependencies)
   
 ## Focus and scope
-because of the scope of the project and limited time I picked the following topics as a focus for this assignment:
+because of the scope of the project and limited time I picked the following topics as the focus for this assignment:
     - Type safety (TypeScript)
     - Type safe implementation of the NS OpenApi Spec
     - Type safe implementation of my own OpenAPI spec
     - Request Schema validation 
     - Rate Limiting (small example)
     - Project structuring
-    - Cloud agnostic deployment through docker 
+    - Cloud service agnostic deployment through docker 
     - Documentation
 
 ## Endpoints
