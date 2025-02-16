@@ -11,6 +11,7 @@ My assessment assignment for the position of full stack developer @ NS
   - [Local build testing](#local-build-testing)
   - [Production](#production)
   - [Possible improvements](#possible-improvements)
+  - [NS OpenAPI possible bugs](#ns-openapi-possible-bugs)
   - [Dependencies](#dependencies)
   - [Dev Dependencies](#dev-dependencies)
   
@@ -80,6 +81,11 @@ Query params:
 - OPENAPI Schema explore page
 - Proper unit testing through vitest
 - Use AWS API Gateway and AWS Lambda
+
+## NS OpenAPI possible bugs
+- `/api/v3/trips` returns a single result object and not an array of trips as specified per OpenAPI schema
+- Unknown station returns 400 Bad Request instead of 404 as per OpenAPI schema
+- json schema base wong base/ server url making OpenAPI parsers that use this fail
 
 ## Dependencies
 
