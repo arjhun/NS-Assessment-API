@@ -37,6 +37,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Trip'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '404':
           description: Could not find trips
           content:
@@ -86,6 +92,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Trip'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
         '404':
           description: Could not find optimal trip
           content:
