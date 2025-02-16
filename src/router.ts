@@ -26,7 +26,7 @@ openApiRouter.get("/api/v3/optimal", {
       }
       res.status(200).send(trip)
     } catch (error) {
-      res.status(500)
+      res.sendStatus(500)
     }
   },
 })
@@ -42,7 +42,7 @@ openApiRouter.get("/api/v3/comfort", {
       }
       res.status(200).send(trips)
     } catch (error) {
-      res.status(500)
+      res.sendStatus(500)
     }
   },
 })
