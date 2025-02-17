@@ -1,8 +1,8 @@
 import "dotenv/config"
 import createClient from "openapi-fetch"
+import { NSAPIError } from "./NSAPIError.js"
 import type { components, paths } from "./types/reisinformatie"
-import { AppError } from "openapi-ts-router"
-import { NSAPIError } from "./NSAPIError"
+
 
 type Trip = components["schemas"]["Trip"]
 type Journey = components["schemas"]["RepresentationResponseJourney"]["payload"]

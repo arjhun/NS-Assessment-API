@@ -1,9 +1,8 @@
 import type express from "express"
-import { AppError } from "openapi-ts-router"
-import { type components } from "./types/assignment"
-import { NSAPIError } from "./NSAPIError"
-import { NOTFOUND } from "dns"
 import { Request, Response } from "express"
+import { AppError } from "openapi-ts-router"
+import { NSAPIError } from "./NSAPIError.js"
+import { type components } from "./types/assignment"
 
 export function errorMiddleware(
   err: any,

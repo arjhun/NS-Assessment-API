@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { createExpressOpenApiRouter } from "openapi-ts-router"
 import { zValidator } from "validation-adapters/zod"
-import { components, type paths } from "./types/assignment"
+import { type paths } from "./types/assignment"
 
 import z from "zod"
 import { getMostOptimalTrip, getTripsByComfort } from "./nsapi.js"

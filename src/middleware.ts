@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import { NSAPIError } from "./NSAPIError"
+import { NSAPIError } from "./NSAPIError.js"
 
 //this is very rudimentary, in production you would use a serious persistent rate limiter
 
