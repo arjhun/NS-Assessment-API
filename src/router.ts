@@ -17,32 +17,24 @@ const TripRequestSchema = z.object({
 
 openApiRouter.get("/api/v3/optimal", {
   queryValidator: zValidator(TripRequestSchema),
-  handler: async (req, res) => {
+  handler: async (req, res, next) => {
     try {
       const trip = await getMostOptimalTrip(req.query)
-      if (!trip) {
-        res.sendStatus(404)
-        return
-      }
       res.status(200).send(trip)
     } catch (error) {
-      res.sendStatus(500)
+      next(error)
     }
   },
 })
 
 openApiRouter.get("/api/v3/comfort", {
   queryValidator: zValidator(TripRequestSchema),
-  handler: async (req, res) => {
+  handler: async (req, res, next) => {
     try {
       const trips = await getTripsByComfort(req.query)
-      if (!trips) {
-        res.sendStatus(404)
-        return
-      }
       res.status(200).send(trips)
     } catch (error) {
-      res.sendStatus(500)
+      next(error)
     }
   },
 })

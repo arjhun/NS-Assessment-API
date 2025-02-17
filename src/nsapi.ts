@@ -1,6 +1,8 @@
 import "dotenv/config"
 import createClient from "openapi-fetch"
 import type { components, paths } from "./types/reisinformatie"
+import { AppError } from "openapi-ts-router"
+import { NSAPIError } from "./NSAPIError"
 
 type Trip = components["schemas"]["Trip"]
 type Journey = components["schemas"]["RepresentationResponseJourney"]["payload"]
@@ -19,7 +21,7 @@ if (!apiKey) {
   )
 }
 
-//create a typesafe OpenAPI client 
+//create a typesafe OpenAPI client
 const client = createClient<paths>({
   baseUrl: "https://gateway.apiportal.ns.nl/reisinformatie-api",
   headers: { "Ocp-Apim-Subscription-Key": apiKey },
@@ -79,8 +81,7 @@ const getJourneyDetailById = async (
   })
 
   if (error) {
-    console.error(error)
-    throw new Error(error.message)
+    throw new NSAPIError(500, "Internal api error!")
   }
 
   return data.payload
@@ -159,12 +160,15 @@ export const getTrips = async ({
         //only actual stops!
         passing: false,
       },
-    }
+    },
   })
 
   if (error) {
-    console.error(error)
-    throw new Error(error.message)
+    if (error.code === 400) {
+      throw new NSAPIError(error.code, error.message)
+    } else {
+      throw new NSAPIError()
+    }
   }
   return data?.trips
 }
@@ -176,7 +180,7 @@ export const getTrips = async ({
  * @param {string} params.fromStation - The departure station.
  * @param {string} params.toStation - The destination station.
  * @param {string} [params.dateTime] - The date and time for the trip. Defaults to the current date and time if not provided.
- * @returns {Promise<Trip | undefined>} A promise that resolves to a trip or undefined if no trip is found.
+ * @returns {Promise<Trip>} A promise that resolves to a trip or undefined if no trip is found.
  * @throws {Error} Throws an error if the API request fails.
  */
 export const getMostOptimalTrip = async ({
@@ -185,7 +189,9 @@ export const getMostOptimalTrip = async ({
   dateTime,
 }: TripRequest) => {
   const trips = await getTrips({ fromStation, toStation, dateTime })
-  return trips?.find((trip) => trip.optimal)
+  const optimal = trips?.find((trip) => trip.optimal)
+  if (!optimal) throw new NSAPIError(404, "No optimal trip found!")
+  return optimal
 }
 
 /**
@@ -195,7 +201,7 @@ export const getMostOptimalTrip = async ({
  * @param {string} params.fromStation - The departure station.
  * @param {string} params.toStation - The destination station.
  * @param {string} [params.dateTime] - The date and time for the trip. Defaults to the current date and time if not provided.
- * @returns {Promise<Trip | undefined>} A promise that resolves to a trip or undefined if no trip is found.
+ * @returns {Promise<Trips>} A promise that resolves to a trip or undefined if no trip is found.
  * @throws {Error} Throws an error if the API request fails.
  */
 export const getTripsByComfort = async ({
@@ -203,11 +209,10 @@ export const getTripsByComfort = async ({
   toStation,
   dateTime,
 }: TripRequest) => {
-  
   const trips = await getTrips({ fromStation, toStation, dateTime })
- 
-  if (!trips) return 
-  
+
+  if (!trips) throw new NSAPIError(404, "No trips found!")
+
   const scoredTripPromises = trips.map(async (trip) => ({
     trip,
     // add score so we can sort after all promises are done
@@ -216,7 +221,5 @@ export const getTripsByComfort = async ({
 
   const scoredTrips = await Promise.all(scoredTripPromises)
 
-  return scoredTrips
-    .sort((a, b) => b.score - a.score)
-    .map(({ trip }) => trip)
+  return scoredTrips.sort((a, b) => b.score - a.score).map(({ trip }) => trip)
 }
