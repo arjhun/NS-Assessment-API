@@ -26,6 +26,7 @@
     "composite": true,
     "skipLibCheck": true,
     "noEmitHelpers": false,
+    "noEmitOnError": true,
 
     "outDir": "build",
     "rootDir": "src",
